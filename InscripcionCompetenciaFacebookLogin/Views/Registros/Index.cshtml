@@ -1,0 +1,77 @@
+﻿@model IEnumerable<InscripcionCompetenciaFacebookLogin.Models.RegistroViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="text-center">
+    <h3>¡Vota en las ideas que más te gusten!</h3>
+</div>
+<br />
+<div ng-app="registrosApp" ng-cloak>
+    <div ng-controller="registrosController">
+        <div class="col-md-8 col-md-offset-2" ng-hide="filteredRegistros.length > 0">
+            <h4>Aún no hay ninguna idea registrada, ¡@Html.ActionLink("sé el primero", "AgregarRegistro", "Registros")!</h4>
+        </div>
+
+        <div class="col-md-4">
+            <div class="list-group" ng-show="filteredRegistros.length > 0">
+                <div ng-repeat="registro in filteredRegistros">
+                    <a class="list-group-item" ng-class="{ active: registro.Id == currentItem.Id }" ng-click="selectItem(registro.Id)">
+                        {{registro.Titulo}} <span class="badge">{{registro.Votos}}</span>
+                    </a>
+                </div>
+            </div>
+
+            <pagination ng-model="currentPage"
+                        total-items="registros.length"
+                        max-size="maxSize"
+                        boundary-links="false"
+                        ng-show="filteredRegistros.length > 0">
+            </pagination>
+        </div>
+        <div class="col-md-8">
+            <div class="panel animIdea" ng-class="itemWinning() ? 'panel-danger' : 'panel-primary' " ng-show="itemSelected">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{currentItem.Titulo}}</h3>
+                </div>
+                <div class="panel-body">
+                    <pre class="customPre">{{currentItem.Contenido}}</pre>
+                    <div class="text-right">
+                        <label class="label label-info">by {{currentItem.NombreUsuario}} {{currentItem.ApellidoUsuario}}</label>
+                    </div>
+                    <hr />
+                    <button class="btn btn-primary btn-sm" ng-click="voteOnItem(currentItem.Id)">Me gusta esta idea!</button>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <button class="btn btn-danger btn-sm" ng-click="deleteItem(currentItem.Id)">Eliminar</button>
+                    }
+                </div>
+            </div>
+            <div class="alert alert-success message animIdea" ng-show="successVoto">Tu voto ha sido guardado!</div>
+            <div class="alert alert-danger message animIdea" ng-show="errorVoto">Ya has votado en esta idea!</div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-animate.js"></script>
+    <script src="~/Scripts/angular-vs-repeat.js"></script>
+    <script src="~/Scripts/ui-bootstrap-tpls-0.12.0.js"></script>
+
+    <script type="text/javascript">
+        var app = angular.module("registrosApp", ['ngAnimate', 'ui.bootstrap']);
+
+        app.config(function($httpProvider){
+            $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+        });
+
+        app.constant("serverURL", "http://citunitec-001-site1.smarterasp.net/Registros");
+
+        app.value("registros", @Html.Raw(Json.Encode(Model)));        
+    </script>
+    <script src="~/Scripts/registrosController.js"></script>
+    <script src="~/Scripts/registrosFactory.js"></script>
+}

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "SeleccionarAccion";
+}
+<br />
+<br />
+<br />
+<br />
+<br />  
+<div class="row">
+    <div class="container text-justify" style="margin-bottom:100px;">
+        <h3>Las reglas de la competencia son simples</h3>
+
+        <ul>
+            <li>Las votaciones serán abiertas, no se dejarán de recibir votos hasta que termine la competencia. Si te enteraste tarde y éste es el último día, no te preocupes, todas las ideas serán tomadas en cuenta.</li>
+            <li>Puedes votar una vez por idea que te guste, ¡no importa si te terminan gustando todas :P!</li>
+            <li>La competencia finalizará el Lunes de Semana 6 (25/05), ¡las 3 ideas con más votos podrán juntarse a nosotros en CIT el mismo Jueves y presentarnos sus ideas!</li>
+            <li>No se permiten ideas que discriminen en cualquier manera a personas, cualquier idea ofensiva será inmediatamente eliminada</li>
+        </ul>
+    </div>
+    <div class="col-md-3 col-md-offset-3">
+        @Html.ActionLink("¡Quiero votar!", "Index", "Registros", new { @class = "btn btn-primary btn-block" })
+    </div>
+    <div class="col-md-3">
+        @Html.ActionLink("¡Quiero participar!", "AgregarRegistro", "Registros", new { @class = "btn btn-primary btn-block" })
+    </div>
+</div>
+

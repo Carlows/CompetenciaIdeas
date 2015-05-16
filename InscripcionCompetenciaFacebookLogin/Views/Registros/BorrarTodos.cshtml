@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "BorrarTodos";
+}
+
+<h2>Borrar Todos</h2>
+
+@using (Html.BeginForm("BorrarTodos", "Registros", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <button class="btn btn-danger" type="submit">Eliminar todos</button>
+}

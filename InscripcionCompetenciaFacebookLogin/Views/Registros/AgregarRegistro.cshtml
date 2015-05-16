@@ -1,0 +1,40 @@
+﻿@model InscripcionCompetenciaFacebookLogin.Models.RegistroViewModel
+
+@{
+    ViewBag.Title = "Agregar Registro";
+}
+
+<h3>Registro</h3>
+<hr />
+<div class="">
+    @using (Html.BeginForm("AgregarRegistro", "Registros", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-8">
+                @Html.TextBoxFor(m => m.Titulo, new { @class = "form-control", placeholder = "Dale un titulo a tu idea" })
+                @Html.ValidationMessageFor(m => m.Titulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-8">
+                @Html.TextAreaFor(m => m.Contenido, new { @class = "form-control", placeholder = "Cuentanos sobre tu idea", rows = "10" })
+                @Html.ValidationMessageFor(m => m.Contenido, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Imagen, new { @class = "control-label col-md-1" }) (opcional)
+            <div class="col-md-7">
+                <input type="file" name="Imagen" />
+                @Html.ValidationMessageFor(m => m.Imagen, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-2">
+                <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+            </div>
+        </div>
+    }
+</div>

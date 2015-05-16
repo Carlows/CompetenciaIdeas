@@ -1,0 +1,14 @@
+﻿
+.quote.ng-hide-remove{
+    -webkit-animation: bounceInRight 0.5s;
+	-moz-animation: bounceInRight 0.5s;
+	-o-animation: bounceInRight 0.5s;
+	animation: bounceInRight 0.5s;
+}
+
+.quote.ng-hide-add{
+    -webkit-animation: bounceOutLeft 0.5s;
+	-moz-animation: bounceOutLeft 0.5s;
+	-o-animation: bounceOutLeft 0.5s;
+	animation: bounceOutLeft 0.5s;
+}
